@@ -30,7 +30,8 @@ module.exports = function (bugzilla) {
       bugzilla.searchBugs({
         'f1': 'requestees.login_name',
         'v1': req.query.user,
-        'o1': 'substring'
+        'o1': 'substring',
+        'query_format': 'advanced'
       }, function (err, bugs) {
         if (err) {
           return next(err);
