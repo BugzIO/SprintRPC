@@ -37,10 +37,10 @@ module.exports = function (bugzilla) {
         }
       );
     },
-    flags: function (req, res, next) {
+    flags: function (req, res, next) { /*
       bugzilla.searchBugs({
         'f1': 'requestees.login_name',
-        'v1': "debloper@gmail.com",
+        'v1': req.query.user,
         'o1': 'substring',
         'query_format': 'advanced'
       }, function (err, bugs) {
@@ -62,12 +62,12 @@ module.exports = function (bugzilla) {
             flag.bug = JSON.parse(JSON.stringify(bug));
             flags.push(flag);
           })
-        });
-        return res.send(flags);
-      });
+        }); */
+
+        // Should return `flags`, but there's some sort of fail
+        // with bugzillaEmail localStorage thingy in ng-controller
+        return res.send([]);
+      // });
     }
   };
 };
-
-
-

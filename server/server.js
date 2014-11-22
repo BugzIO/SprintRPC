@@ -2,7 +2,6 @@ module.exports = function (env) {
   var express = require('express');
   var app = express();
   var db = require('./db')(env.get('db'));
-  var bz = require('bz');
 
   // Whitelist
   if (env.get('ADMINS')) {
@@ -28,7 +27,8 @@ module.exports = function (env) {
   });
 
   // bz
-  var bugzilla = env.get('OFFLINE') ? require('../offline/bz.js') : bz.createClient();
+  // var bugzilla = env.get('OFFLINE') ? require('../offline/bz.js') : bz.createClient();
+  var bugzilla = require('../offline/bz.js');
 
   app.use(express.logger('dev'));
   app.use(express.compress());
