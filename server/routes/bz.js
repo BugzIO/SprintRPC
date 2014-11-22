@@ -1,8 +1,8 @@
 module.exports = function (bugzilla) {
   return {
-    bugsrpc: function (req, res, next) {
-      var url = 'https://bugzilla.mozilla.org/jsonrpc.cgi?method=Bug.search&' +
-                'params=%5B{%22summary%22:%22MozillaIndia.org%22,%20%22limit%22:%221%22}%5D';
+    bugs: function (req, res, next) {
+      var url = 'https://bugzilla.mozilla.org/jsonrpc.cgi?method=Bug.search';
+      url += "&params=" + encodeURIComponent(JSON.stringify([req.query]));
 
       require("request")({
           uri: url,
@@ -13,35 +13,29 @@ module.exports = function (bugzilla) {
         function (error, response, body) {
           if (error) return next(error);
           body = JSON.parse(body);
-          res.send(body.result);
+
+          var bugs = body.result.bugs
+            , output = bugs.map(function(bug) {
+
+            // Check real name
+            if (!bug.assigned_to_detail.real_name) {
+              bug.assigned_to_detail.real_name = bug.assigned_to_detail.email.split('@')[0];
+            }
+            // Check if bugs which it depends on are resolved
+            if (!bug.resolution && bug.depends_on.length) {
+              bug.depends_on.forEach(function(blockerId) {
+                bugs.forEach(function(item) {
+                  if (item.id === blockerId && !item.resolution) {
+                    bug.blocked = true;
+                  }
+                })
+              });
+            }
+            return bug;
+          });
+          res.send(output);
         }
       );
-    },
-    bugs: function (req, res, next) {
-      bugzilla.searchBugs(req.query, function(err, bugs) {
-        if (err) {
-          return next(err);
-        }
-        var output = bugs.map(function(bug) {
-
-          // Check real name
-          if (!bug.assigned_to_detail.real_name) {
-            bug.assigned_to_detail.real_name = bug.assigned_to_detail.email.split('@')[0];
-          }
-          // Check if bugs which it depends on are resolved
-          if (!bug.resolution && bug.depends_on.length) {
-            bug.depends_on.forEach(function(blockerId) {
-              bugs.forEach(function(item) {
-                if (item.id === blockerId && !item.resolution) {
-                  bug.blocked = true;
-                }
-              })
-            });
-          }
-          return bug;
-        });
-        res.send(output);
-      });
     },
     flags: function (req, res, next) {
       bugzilla.searchBugs({
