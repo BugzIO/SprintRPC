@@ -62,6 +62,7 @@ module.exports = function(env, app, dbInit, bugzilla, authUri) {
   */
   app.get('/bugs', bz.bugs);
   app.get('/flags', bz.flags);
+  app.get('/rpctest', bz.bugsrpc);
 
   /*********************************************************
   * Github

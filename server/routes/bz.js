@@ -1,5 +1,22 @@
 module.exports = function (bugzilla) {
   return {
+    bugsrpc: function (req, res, next) {
+      var url = 'https://bugzilla.mozilla.org/jsonrpc.cgi?method=Bug.search&' +
+                'params=%5B{%22summary%22:%22MozillaIndia.org%22,%20%22limit%22:%221%22}%5D';
+
+      require("request")({
+          uri: url,
+          method: 'GET',
+          body: null,
+          headers: { 'Content-type': 'application/json' }
+        },
+        function (error, response, body) {
+          if (error) return next(error);
+          body = JSON.parse(body);
+          res.send(body.result);
+        }
+      );
+    },
     bugs: function (req, res, next) {
       bugzilla.searchBugs(req.query, function(err, bugs) {
         if (err) {
@@ -29,7 +46,7 @@ module.exports = function (bugzilla) {
     flags: function (req, res, next) {
       bugzilla.searchBugs({
         'f1': 'requestees.login_name',
-        'v1': req.query.user,
+        'v1': "debloper@gmail.com",
         'o1': 'substring',
         'query_format': 'advanced'
       }, function (err, bugs) {
