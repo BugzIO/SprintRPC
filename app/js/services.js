@@ -29,7 +29,7 @@ angular.module('myApp.services', ['ngResource'])
         });
       };
       service.newBugUrl = function (whiteboard, defaultComponent) {
-        var link = 'https://bugzilla.mozilla.org/enter_bug.cgi?product=' + config.bzProduct +
+        var link = 'https://bugzilla.redhat.com/enter_bug.cgi?product=' + config.bzProduct +
         '&status_whiteboard=' + encodeURIComponent(whiteboard);
 
         if (defaultComponent) {
@@ -94,7 +94,7 @@ angular.module('myApp.services', ['ngResource'])
             method: 'GET',
             url: '/bugs',
             params: {
-              product: config.bzProduct,
+              product: "Red Hat Storage",
               whiteboard: whiteboard,
               limit: 200
             }

@@ -1,8 +1,10 @@
 module.exports = function (bugzilla) {
   return {
     bugs: function (req, res, next) {
-      var url = 'https://bugzilla.mozilla.org/jsonrpc.cgi?method=Bug.search';
+      var url = 'https://bugzilla.redhat.com/jsonrpc.cgi?method=Bug.search';
       url += "&params=" + encodeURIComponent(JSON.stringify([req.query]));
+
+      console.log(url);
 
       require("request")({
           uri: url,
@@ -18,9 +20,9 @@ module.exports = function (bugzilla) {
             , output = bugs.map(function(bug) {
 
             // Check real name
-            if (!bug.assigned_to_detail.real_name) {
-              bug.assigned_to_detail.real_name = bug.assigned_to_detail.email.split('@')[0];
-            }
+            // if (!bug.assigned_to_detail.real_name) {
+            //   bug.assigned_to_detail.real_name = bug.assigned_to_detail.email.split('@')[0];
+            // }
             // Check if bugs which it depends on are resolved
             if (!bug.resolution && bug.depends_on.length) {
               bug.depends_on.forEach(function(blockerId) {
