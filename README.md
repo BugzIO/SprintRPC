@@ -8,8 +8,10 @@ You need [nodejs and npm](http://nodejs.org) to install dependencies/build this 
 
 ```
 npm install
-cp env.dist .env
+cp .env.dist .env
+bower install
 ```
+In case the application is being run as root, run `bower install --allow-root` for installing the bower dependencies. This will create the `sprinter/app/bower_components` which will be used by `grunt` to compile the less files.
 
 ## Run
 
