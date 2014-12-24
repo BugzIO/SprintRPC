@@ -59,9 +59,8 @@ angular.module('myApp', [
     '$http',
     '$location',
     'sprintService',
-    'authService',
     'config',
-    function ($rootScope, $http, $location, sprintService, authService, config) {
+    function ($rootScope, $http, $location, sprintService, config) {
       // Jump to top of viewport when new views load
       $rootScope.$on('$locationChangeSuccess', function(event) {
         window.scrollTo(0, 0);
