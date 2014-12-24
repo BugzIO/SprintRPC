@@ -23,23 +23,7 @@
           <a href="https://github.com/debloper/SprintRPC/issues" class="btn navbar-left navbar-btn btn-default">
             Please file issues
           </a>
-          <button ng-hide="user" class="btn navbar-right navbar-btn btn-primary" ng-click="login()">
-            <span class="fa fa-fw fa-github"></span> Login
-          </button>
           </form>
-          <ul ng-show="user" class="nav navbar-nav navbar-right">
-            <li class="dropdown" href="#">
-              <a class="navbar-user-info dropdown-toggle" data-toggle="dropdown">
-                <img class="user-info-avatar" ng-src="{{user.avatar_url}}"> {{user.login}}
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a href="/"><span class="fa fa-fw fa-home"></span> Home</a></li>
-                <li class="divider"></li>
-                <li><a href="#" ng-click="logout()"><span class="fa fa-fw fa-sign-out"></span>Log out</a></li>
-              </ul>
-            </li>
-          </ul>
           <ul class="nav navbar-nav navbar-right visible-xs">
             <li ng-repeat="m in sprints">
               <a ng-href="/sprint/{{m.id}}">{{m.title}} ({{m.dueDate | date: 'MMM d'}})</a>

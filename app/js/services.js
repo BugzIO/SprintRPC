@@ -49,41 +49,6 @@ angular.module('myApp.services', ['ngResource'])
       return service;
     }
   ])
-  .factory('authService', [
-    '$http',
-    '$rootScope',
-    function($http, $rootScope) {
-      var service = {};
-
-      // Get the user info and set it to rootscope
-      service.getUser = function getUser() {
-        $http
-          .get('/user')
-          .success(function (user) {
-            $rootScope.user = user;
-          })
-          .error(function() {
-            $rootScope.user = null;
-          });
-      };
-
-      // Redirect to oauth login
-      service.login = function login() {
-        window.location = '/auth';
-      };
-
-      // Destroy session, both client and server-side
-      service.logout = function logout() {
-        $http
-          .get('/auth/logout')
-          .success(function () {
-            $rootScope.user = null;
-          });
-      };
-
-      return service;
-    }
-  ])
   .factory('bzService', [
     '$http',
     'config',

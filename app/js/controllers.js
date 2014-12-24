@@ -6,12 +6,8 @@ angular.module('myApp.controllers', [])
     '$rootScope',
     '$http',
     'sprintService',
-    'authService',
     'config',
-    function ($scope, $rootScope, $http, sprintService, authService, config) {
-      authService.getUser();
-      $scope.login = authService.login;
-      $scope.logout = authService.logout;
+    function ($scope, $rootScope, $http, sprintService, config) {
       $scope.$on('sprintRefresh', function (event, sprints) {
         $scope.sprints = sprints;
       });
@@ -55,7 +51,6 @@ angular.module('myApp.controllers', [])
             }
           })
           .success(function (data) {
-            console.log(data);
             $scope.flags = data;
           });
       };
