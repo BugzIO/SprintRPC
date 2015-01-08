@@ -54,13 +54,13 @@ angular.module('myApp.services', ['ngResource'])
     'config',
     function ($http, config) {
       var service = {};
-      service.getBugs = function(whiteboard, cb) {
+      service.getBugs = function(release, cb) {
         $http({
             method: 'GET',
             url: '/bugs',
             params: {
-              product: "Red Hat Storage",
-              whiteboard: whiteboard,
+              //product: "Red Hat Storage",
+              target_release: release,
               limit: 200
             }
           })

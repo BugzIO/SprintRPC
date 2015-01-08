@@ -166,6 +166,7 @@ angular.module('myApp.controllers', [])
         $scope.bugs = [];
         bzService.getBugs($scope.m.whiteboard, function (data) {
           $scope.bugs = data;
+          localStorage.setItem($routeParams.id, JSON.stringify(data));
         });
       };
 
