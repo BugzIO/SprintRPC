@@ -3,7 +3,6 @@ module.exports = function(env, app, dbInit, bugzilla, authUri) {
   var db = require('./dbController')(dbInit);
   var auth = require('./auth')(env, authUri);
   var bz = require('./bz')(bugzilla);
-  var github = require('./github')();
 
   /*********************************************************
   * Config
@@ -62,11 +61,5 @@ module.exports = function(env, app, dbInit, bugzilla, authUri) {
   */
   app.get('/bugs', bz.bugs);
   app.get('/flags', bz.flags);
-
-  /*********************************************************
-  * Github
-  */
-  app.get('/github/:details', github.details);
-  app.get('/github/issues/:owner/:repo/milestone/:milestone', github.milestone);
 
 };
