@@ -263,6 +263,7 @@ angular.module('myApp.controllers', [])
     '$scope',
     'sprintService',
     function ($scope, sprintService) {
+      $scope.pageTitle = 'Archieved'
       sprintService
         .getArchived()
         .success(function (sprints) {
