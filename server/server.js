@@ -12,20 +12,6 @@ module.exports = function (env) {
     env.set('WHITELIST', []);
   }
 
-  // Auth
-  var oauth2 = require('simple-oauth2')({
-    clientID: env.get('GITHUB_CLIENT_ID'),
-    clientSecret: env.get('GITHUB_CLIENT_SECRET'),
-    site: 'https://github.com/login',
-    tokenPath: '/oauth/access_token'
-  });
-  var redirectUri = env.get('AUDIENCE') + '/auth/callback';
-  var authUri = oauth2.AuthCode.authorizeURL({
-    redirect_uri: redirectUri,
-    scope: 'user:email',
-    state: '3(#0/!~'
-  });
-
   // bz
   // var bugzilla = env.get('OFFLINE') ? require('../offline/bz.js') : bz.createClient();
   var bugzilla = require('../offline/bz.js');
@@ -44,7 +30,7 @@ module.exports = function (env) {
   app.use(express.csrf());
 
   app.use(express.static('./app'));
-  require('./routes')(env, app, db, bugzilla, authUri);
+  require('./routes')(env, app, db, bugzilla);
 
   //Errors
   app.use(function errorHandler (err, req, res, next) {
