@@ -1,5 +1,5 @@
 <ul class="section-sidebar-nav nav nav-stacked">
-  <li ng-show="canEdit(user)">
+  <li ng-show="canEdit(user)" style="display:none">
     <a href="/add"><span class="fa fa-fw fa-plus"></span> Add sprint</a>
   </li>
   <li>
@@ -11,4 +11,33 @@
   <li>
     <a href="/archived"><span class="fa fa-fw fa-book"></span> Archived sprints</a>
   </li>
+  <div style="width:300px;background-color:#333333; padding:20px;">
+    <div style="overflow-x: hidden; height: 500px;">
+        <ul class="section-sidbar-nav nav nav-stacked nav-list">
+            <li><label class="tree-toggler nav-header">Target Release 1</label>
+                <ul class="nav nav-list tree">
+                    <li><a href="#">Alpha</a></li>
+                    <li><a href="#">Beta</a></li>
+                    <li><a href="#">RC</a></li>
+                    <li><a href="#">Final</a></li>
+                </ul>
+            </li>
+            <li><label class="tree-toggler nav-header">Target Release 2</label>
+                <ul class="nav nav-list tree">
+                    <li><a href="#">Alpha</a></li>
+                    <li><a href="#">Beta</a></li>
+                    <li><a href="#">RC</a></li>
+                    <li><a href="#">Final</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
 </ul>
+<script type="text/javascript">
+  $(document).ready(function () {
+  $('label.tree-toggler').click(function () {
+    $(this).parent().children('ul.tree').toggle(300);
+  });
+});
+</script>
