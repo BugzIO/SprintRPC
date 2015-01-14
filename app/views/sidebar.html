@@ -6,38 +6,15 @@
     <a href="/"><span class="fa fa-fw fa-home"></span> Home</a>
   </li>
   <li ng-repeat="m in sprints">
-    <a href="/sprint/{{m.id}}">{{m.title}}<span class="sidebar-date">{{m.dueDate | date: 'MMM d'}}</span></a>
+    <a class="sprint" href="/sprint/{{m.id}}">{{m.title}}<span class="sidebar-date">{{m.dueDate | date: 'MMM d'}}</span></a>
+    <ul id="milestonesOf{{m.id}}" class="nav nav-list">
+        <li><a class="subsprint" href="/sprint/{{m.id}}/alpha">Alpha</a></li>
+        <li><a class="subsprint" href="/sprint/{{m.id}}/beta">Beta</a></li>
+        <li><a class="subsprint" href="/sprint/{{m.id}}/rc">RC</a></li>
+        <li><a class="subsprint" href="/sprint/{{m.id}}/final">Final</a></li>
+    </ul>
   </li>
   <li>
     <a href="/archived"><span class="fa fa-fw fa-book"></span> Archived sprints</a>
   </li>
-  <div style="width:300px;background-color:#333333; padding:20px;">
-    <div style="overflow-x: hidden; height: 500px;">
-        <ul class="section-sidbar-nav nav nav-stacked nav-list">
-            <li><label class="tree-toggler nav-header">Target Release 1</label>
-                <ul class="nav nav-list tree">
-                    <li><a href="#">Alpha</a></li>
-                    <li><a href="#">Beta</a></li>
-                    <li><a href="#">RC</a></li>
-                    <li><a href="#">Final</a></li>
-                </ul>
-            </li>
-            <li><label class="tree-toggler nav-header">Target Release 2</label>
-                <ul class="nav nav-list tree">
-                    <li><a href="#">Alpha</a></li>
-                    <li><a href="#">Beta</a></li>
-                    <li><a href="#">RC</a></li>
-                    <li><a href="#">Final</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</div>
 </ul>
-<script type="text/javascript">
-  $(document).ready(function () {
-  $('label.tree-toggler').click(function () {
-    $(this).parent().children('ul.tree').toggle(300);
-  });
-});
-</script>

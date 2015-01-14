@@ -146,6 +146,9 @@ header {
 @sidebar-colour: #FFF;
 @sidebar-bg: #333;
 @sidebar-bg-hover: #222;
+@subsprint-color: #107F6E;
+@subsprint-bg-hover: #444;
+
 
 .section-sidebar {
   overflow-y: auto;
@@ -165,7 +168,7 @@ header {
   // Each element, active states
   > li {
     transition: all 0.2s ease-in-out;
-    opacity: 0.5;
+    opacity: 0.80;
     position: relative;
 
     &:hover,
@@ -187,7 +190,6 @@ header {
   > li > a {
     padding: 15px;
     color: @sidebar-colour;
-    //font-weight: 300;
 
     &:hover,
     &:focus {
@@ -195,6 +197,18 @@ header {
       background: none;
     }
   }
+
+  a.subsprint {
+    padding: 8px 24px;
+    color: @subsprint-color;
+
+    &:hover,
+    &:focus {
+      background: @subsprint-bg-hover;
+    }
+  }
+
+  .nav-list { display: none; }
 
   // Dates
 

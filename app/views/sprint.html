@@ -33,7 +33,7 @@
             <span class="fa fa-refresh"></span><span class="sr-only">Refresh bugs</span>
           </button>
           <input placeholder="Filter whiteboard" class="form-control form-inline" ng-model="bugFilter.whiteboard">
-          <input placeholder="Filter assigned" class="form-control form-inline" ng-model="bugFilter.assigned_to_detail.real_name">
+          <input placeholder="Filter assigned" class="form-control form-inline" ng-model="bugFilter.assigned_to">
         </form>
       </p>
 
@@ -59,7 +59,7 @@
               {{bug.summary}} <span ng-if="bug.blocked">(blocked)</span>
             </td>
             <td class="visible-lg small text-monospace">{{bug.whiteboard}}</td>
-            <td>{{bug.assigned_to_detail.real_name | nameFilter}}</td>
+            <td>{{bug.assigned_to | nameFilter}}</td>
             <td>{{bug.status}}</td>
           </tr>
         </tbody>

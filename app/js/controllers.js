@@ -161,11 +161,11 @@ angular.module('myApp.controllers', [])
         $scope.m = data
       });
 
-
       $scope.getBugs = function() {
         $scope.bugs = [];
         bzService.getBugs($scope.m.whiteboard, function (data) {
           $scope.bugs = data;
+          $("#milestonesOf" + $routeParams.id).toggle();
           localStorage.setItem($routeParams.id, JSON.stringify(data));
         });
       };
@@ -199,7 +199,7 @@ angular.module('myApp.controllers', [])
         },
         {
           name: 'Assigned',
-          bz: 'assigned_to_detail.real_name'
+          bz: 'assigned_to'
         },
         {
           name: 'Status',

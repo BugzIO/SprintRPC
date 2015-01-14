@@ -20,9 +20,9 @@ module.exports = function (bugzilla) {
             , output = bugs.map(function(bug) {
 
             // Check real name
-            // if (!bug.assigned_to_detail.real_name) {
-            //   bug.assigned_to_detail.real_name = bug.assigned_to_detail.email.split('@')[0];
-            // }
+            if (!bug.assigned_to) {
+              bug.assigned_to = "N/A";
+            }
             // Check if bugs which it depends on are resolved
             if (!bug.resolution && bug.depends_on.length) {
               bug.depends_on.forEach(function(blockerId) {
