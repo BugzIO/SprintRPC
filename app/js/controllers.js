@@ -165,7 +165,11 @@ angular.module('myApp.controllers', [])
         $scope.bugs = [];
         bzService.getBugs($scope.m.whiteboard, function (data) {
           $scope.bugs = data;
-          $("#milestonesOf" + $routeParams.id).toggle();
+          $(".selected", "#milestonesOf" + $routeParams.id).removeClass("selected");
+          $("#milestonesOf" + $routeParams.id).show();
+
+          // Caching data locally for the milestones
+          data = { meta: $scope.m, bugs: data }
           localStorage.setItem($routeParams.id, JSON.stringify(data));
         });
       };
@@ -241,7 +245,7 @@ angular.module('myApp.controllers', [])
       };
 
       function isResolved(bug) {
-        return bug.status === 'RESOLVED';
+        return bug.status === 'CLOSED';
       }
 
       $scope.$watch('bugs', function() {
@@ -257,6 +261,101 @@ angular.module('myApp.controllers', [])
         }
       });
 
+    }
+  ])
+  .controller('SubSprintCtrl', ['$scope', '$http', '$rootScope', '$routeParams', 'sprintService', 'bzService',
+
+    function($scope, $http, $rootScope, $routeParams, sprintService, bzService) {
+
+      $scope.cache = JSON.parse(localStorage.getItem($routeParams.id));
+      $scope.bugs = $scope.cache.bugs.filter(function (bug) {
+        return bug.id >= 0;
+      });
+      $scope.m = $scope.cache.meta;
+      $scope.m.title += " " + $routeParams.milestone;
+
+      $("#milestonesOf" + $routeParams.id).show();
+      $(".selected", "#milestonesOf" + $routeParams.id).removeClass("selected");
+      var milestone = $("a[href='/sprint/" + $routeParams.id + "/" + $routeParams.milestone + "']");
+      milestone.addClass("selected");
+
+      $scope.fields = [
+        {
+          name: 'Updated',
+          bz: 'last_change_time'
+        },
+        {
+          name: 'ID',
+          bz: 'id'
+        },
+        {
+          name: 'Bug',
+          bz: 'summary'
+        },
+        {
+          name: 'Whiteboard',
+          bz: 'whiteboard',
+          class: 'visible-lg'
+        },
+        {
+          name: 'Assigned',
+          bz: 'assigned_to'
+        },
+        {
+          name: 'Status',
+          bz: 'status'
+        }
+      ];
+
+      var asc = '';
+      var desc = '-';
+
+      function switchDir(dir) {
+        return dir === '-' ? '' : '-';
+      }
+
+      $scope.orderDir = desc;
+      $scope.orderByField = 'last_change_time';
+      $scope.orderByFields = ['status', $scope.orderDir + $scope.orderByField, '-assignedTo'];
+
+      $scope.setOrderBy = function(field) {
+        $scope.orderByFields = [];
+        if (field === $scope.orderByField) {
+          $scope.orderDir = switchDir($scope.orderDir);
+        } else {
+          $scope.orderByField = field;
+          if (field === 'last_change_time') {
+            $scope.orderDir = desc;
+          } else {
+            $scope.orderDir = asc;
+          }
+        }
+
+        if (field !== 'status') {
+          $scope.orderByFields.push('status');
+        }
+        $scope.orderByFields.push($scope.orderDir + $scope.orderByField);
+        if ($scope.orderByField !== 'assignedTo') {
+          $scope.orderByFields.push('-assignedTo');
+        }
+      };
+
+      function isResolved(bug) {
+        return bug.status === 'CLOSED';
+      }
+
+      $scope.$watch('bugs', function() {
+        var bugsResolved = Math.floor($scope.bugs.filter(isResolved).length);
+        var totalBugs =  $scope.bugs.length;
+        $scope.complete = {
+          percentage:  Math.round(bugsResolved / totalBugs * 100),
+          resolved: bugsResolved,
+          total: totalBugs
+        };
+        if ($scope.complete.percentage === 100) {
+          $scope.hideResolved = false;
+        }
+      });
     }
   ])
   .controller('ArchivedCtrl', [

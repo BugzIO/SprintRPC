@@ -49,6 +49,11 @@ angular.module('myApp', [
         controller: 'UpdateCtrl'
       });
 
+      $routeProvider.when('/sprint/:id/:milestone', {
+        templateUrl: '/views/sprint.html',
+        controller: 'SubSprintCtrl'
+      });
+
       $routeProvider.otherwise({
         redirectTo: '/'
       });
