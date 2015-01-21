@@ -9,5 +9,5 @@ angular.module('myApp.filters', [])
   .filter('timeago', ['moment', function (moment) {
     return function (date) {
       return moment(date).fromNow();
-    }
+    };
   }]);
