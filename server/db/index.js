@@ -4,7 +4,7 @@ module.exports = function(options) {
 
   options = options || {};
   
-  var sequelize = new Sequelize(options.database, options.user, options.password, {
+  var sequelize = new Sequelize(null, null, null, {
     dialect: 'sqlite',
     storage: options.storage || 'sprinter.sqlite'
   });

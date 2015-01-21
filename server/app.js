@@ -14,6 +14,6 @@ if (!env.get('DB_CONNECTIONSTRING') && env.get('cleardbDatabaseUrl')) {
 var app = require('./server')(env);
 
 // Run server
-app.listen(env.get('PORT', 1989), function () {
-  console.log('Now listening on %d', env.get('PORT'));
+app.listen(1337, function () {
+  console.log('Now listening on %d', 1337);
 });

@@ -37,12 +37,13 @@
     <div class="bugz col-lg-10 col-lg-offset-1">
       <p>
         <form class="form-inline">
-          <span class="space-right">Release: <code>{{m.whiteboard}}</code></span>
+          <span class="space-right">Target: <code>{{m.whiteboard}}</code></span>
           <button ng-click="getBugs()" title="Refresh bugs" class="btn btn-success">
             <span class="fa fa-refresh"></span><span class="sr-only">Refresh bugs</span>
           </button>
           <input placeholder="Filter whiteboard" class="form-control form-inline" ng-model="bugFilter.whiteboard">
           <input placeholder="Filter assigned" class="form-control form-inline" ng-model="bugFilter.assigned_to">
+          <input placeholder="Filter status" class="form-control form-inline" ng-model="bugFilter.status">
         </form>
       </p>
 

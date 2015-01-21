@@ -15,7 +15,6 @@
     "habitat": "1.1.0",
     "webmaker-auth": "0.0.8",
     "sequelize": "~1.7.0",
-    "mysql": "~2.1.1",
     "node-oauth2-server": "^2.0.2",
     "passport-github": "^0.1.5",
     "passport": "^0.2.0",

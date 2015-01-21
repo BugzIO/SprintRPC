@@ -273,6 +273,7 @@ angular.module('myApp.controllers', [])
       });
       $scope.m = $scope.cache.meta;
       $scope.m.title += " " + $routeParams.milestone;
+      $scope.m.whiteboard = $scope.m.whiteboard + " " + $routeParams.milestone;
 
       $("#milestonesOf" + $routeParams.id).show();
       $(".selected", "#milestonesOf" + $routeParams.id).removeClass("selected");
