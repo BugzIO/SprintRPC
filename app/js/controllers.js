@@ -1,5 +1,5 @@
 // Controllers ----------------------------------------------------------------
-
+/* globals $ */
 angular.module('myApp.controllers', [])
   .controller('topCtrl', [
     '$scope',
@@ -82,7 +82,7 @@ angular.module('myApp.controllers', [])
       };
 
       $scope.dateOptions = {
-         'year-format': "'yy'",
+         'year-format': '\'yy\'',
          'show-weeks': false
        };
 
@@ -129,7 +129,7 @@ angular.module('myApp.controllers', [])
     };
 
     $scope.dateOptions = {
-       'year-format': "'yy'",
+       'year-format': '\'yy\'',
        'show-weeks': false
      };
 
@@ -158,18 +158,18 @@ angular.module('myApp.controllers', [])
       $scope.complete = {};
 
       $scope.archive = sprintService.archive($routeParams.id, function (data) {
-        $scope.m = data
+        $scope.m = data;
       });
 
       $scope.getBugs = function() {
         $scope.bugs = [];
         bzService.getBugs($scope.m.whiteboard, function (data) {
           $scope.bugs = data;
-          $(".selected", "#milestonesOf" + $routeParams.id).removeClass("selected");
-          $("#milestonesOf" + $routeParams.id).show();
+          $('.selected', '#milestonesOf' + $routeParams.id).removeClass('selected');
+          $('#milestonesOf' + $routeParams.id).show();
 
           // Caching data locally for the milestones
-          data = { meta: $scope.m, bugs: data }
+          data = { meta: $scope.m, bugs: data };
           localStorage.setItem($routeParams.id, JSON.stringify(data));
         });
       };
@@ -272,13 +272,13 @@ angular.module('myApp.controllers', [])
         return bug.id >= 0;
       });
       $scope.m = $scope.cache.meta;
-      $scope.m.title += " " + $routeParams.milestone;
-      $scope.m.whiteboard = $scope.m.whiteboard + " " + $routeParams.milestone;
+      $scope.m.title += ' ' + $routeParams.milestone;
+      $scope.m.whiteboard = $scope.m.whiteboard + ' ' + $routeParams.milestone;
 
-      $("#milestonesOf" + $routeParams.id).show();
-      $(".selected", "#milestonesOf" + $routeParams.id).removeClass("selected");
-      var milestone = $("a[href='/sprint/" + $routeParams.id + "/" + $routeParams.milestone + "']");
-      milestone.addClass("selected");
+      $('#milestonesOf' + $routeParams.id).show();
+      $('.selected', '#milestonesOf' + $routeParams.id).removeClass('selected');
+      var milestone = $('a[href=\'/sprint/' + $routeParams.id + '/' + $routeParams.milestone + '\']');
+      milestone.addClass('selected');
 
       $scope.fields = [
         {
@@ -363,7 +363,7 @@ angular.module('myApp.controllers', [])
     '$scope',
     'sprintService',
     function ($scope, sprintService) {
-      $scope.pageTitle = 'Archieved'
+      $scope.pageTitle = 'Archieved';
       sprintService
         .getArchived()
         .success(function (sprints) {
