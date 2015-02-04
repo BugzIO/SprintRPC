@@ -7,12 +7,12 @@
   </li>
   <li ng-repeat="m in sprints">
     <a class="sprint" href="/sprint/{{m.id}}">{{m.title}}<span class="sidebar-date">{{m.dueDate | date: 'MMM d'}}</span></a>
-    <ul id="milestonesOf{{m.id}}" class="nav nav-list">
+    <!--ul id="milestonesOf{{m.id}}" class="nav nav-list">
         <li><a class="subsprint" href="/sprint/{{m.id}}/alpha">Alpha</a></li>
         <li><a class="subsprint" href="/sprint/{{m.id}}/beta">Beta</a></li>
         <li><a class="subsprint" href="/sprint/{{m.id}}/rc">RC</a></li>
         <li><a class="subsprint" href="/sprint/{{m.id}}/final">Final</a></li>
-    </ul>
+    </ul-->
   </li>
   <li>
     <a href="/archived"><span class="fa fa-fw fa-book"></span> Archived sprints</a>

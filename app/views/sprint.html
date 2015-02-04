@@ -3,6 +3,9 @@
     <hgroup>
       <h1 class="feature-title">{{m.title}}<span ng-if="m.archived"> (Archived)</span></h1>
       <h3 class="feature-due-date">
+        <button ng-click="getBugs()" title="Refresh bugs" class="btn btn-success">
+          <span class="fa fa-refresh"></span><span class="sr-only">Refresh bugs</span>
+        </button>
         Due {{m.dueDate | timeago}}
         <a ng-if="newBugUrl" href="{{newBugUrl}}" class="btn btn-primary btn-add-bug" target="_blank">
           <span class="fa fa-plus"></span> Add bug
@@ -33,20 +36,13 @@
   </header>
 
   <row>
-
     <div class="bugz col-lg-10 col-lg-offset-1">
-      <p>
-        <form class="form-inline">
-          <span class="space-right">Target: <code>{{m.whiteboard}}</code></span>
-          <button ng-click="getBugs()" title="Refresh bugs" class="btn btn-success">
-            <span class="fa fa-refresh"></span><span class="sr-only">Refresh bugs</span>
-          </button>
-          <input placeholder="Filter whiteboard" class="form-control form-inline" ng-model="bugFilter.whiteboard">
-          <input placeholder="Filter assigned" class="form-control form-inline" ng-model="bugFilter.assigned_to">
-          <input placeholder="Filter status" class="form-control form-inline" ng-model="bugFilter.status">
-        </form>
-      </p>
-
+      <form class="form-inline">
+        <input placeholder="Filter whiteboard" class="form-control form-inline" ng-model="bugFilter.whiteboard">
+        <input placeholder="Filter component" class="form-control form-inline" ng-model="bugFilter.component">
+        <input placeholder="Filter assigned" class="form-control form-inline" ng-model="bugFilter.assigned_to">
+        <input placeholder="Filter status" class="form-control form-inline" ng-model="bugFilter.status">
+      </form>
       <div class="bugs-loading" ng-hide="bugs">
         <span class="fa fa-cog fa-spin"></span><span class="sr-only">Loading bugs</span>
       </div>
@@ -65,17 +61,15 @@
               ng-hide="bug.status === 'RESOLVED' && hideResolved || bug.resolution === 'DUPLICATE'">
             <td>{{bug.last_change_time | timeago}}</td>
             <td class="text-monospace"> <a href="https://bugzilla.redhat.com/show_bug.cgi?id={{bug.id}}" target="_blank">#{{bug.id}}</a></td>
-            <td>
-              {{bug.summary}} <span ng-if="bug.blocked">(blocked)</span>
-            </td>
+            <td>{{bug.summary}} <span ng-if="bug.blocked">(blocked)</span></td>
             <td class="visible-lg small text-monospace">{{bug.whiteboard}}</td>
+            <td>{{bug.component.join(', ')}}</td>
             <td>{{bug.assigned_to | nameFilter}}</td>
             <td>{{bug.status}}</td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </row>
 
 </div>
