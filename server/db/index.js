@@ -1,12 +1,10 @@
 var Sequelize = require('sequelize');
 
 module.exports = function(options) {
-
-  options = options || {};
   
   var sequelize = new Sequelize(null, null, null, {
     dialect: 'sqlite',
-    storage: options.storage || 'sprinter.sqlite'
+    storage: 'sprinter.sqlite'
   });
 
   // Import models
