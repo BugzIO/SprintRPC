@@ -202,6 +202,10 @@ angular.module('myApp.controllers', [])
           class: 'visible-lg'
         },
         {
+          name: 'Component',
+          bz: 'component'
+        },
+        {
           name: 'Assigned',
           bz: 'assigned_to'
         },
@@ -290,7 +294,7 @@ angular.module('myApp.controllers', [])
           bz: 'id'
         },
         {
-          name: 'Bug',
+          name: 'Summary',
           bz: 'summary'
         },
         {
