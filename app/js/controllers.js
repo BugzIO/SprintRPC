@@ -1,5 +1,5 @@
 // Controllers ----------------------------------------------------------------
-
+/* globals $ */
 angular.module('myApp.controllers', [])
   .controller('topCtrl', [
     '$scope',
@@ -82,7 +82,7 @@ angular.module('myApp.controllers', [])
       };
 
       $scope.dateOptions = {
-         'year-format': "'yy'",
+         'year-format': '\'yy\'',
          'show-weeks': false
        };
 
@@ -129,7 +129,7 @@ angular.module('myApp.controllers', [])
     };
 
     $scope.dateOptions = {
-       'year-format': "'yy'",
+       'year-format': '\'yy\'',
        'show-weeks': false
      };
 
@@ -158,18 +158,105 @@ angular.module('myApp.controllers', [])
       $scope.complete = {};
 
       $scope.archive = sprintService.archive($routeParams.id, function (data) {
-        $scope.m = data
+        $scope.m = data;
       });
 
       $scope.getBugs = function() {
         $scope.bugs = [];
         bzService.getBugs($scope.m.whiteboard, function (data) {
           $scope.bugs = data;
-          $(".selected", "#milestonesOf" + $routeParams.id).removeClass("selected");
-          $("#milestonesOf" + $routeParams.id).show();
+          $scope.filtered_bugs = data;
+          console.log(data);
+          $scope.whiteboard = "";
+          $scope.component = "";
+          $scope.assigned_to = "";
+          $scope.status = "";
+          // Multiple filter criteria, Split by commas in the input boxes
+          $scope.filter_bug = function () {
+            // Splitting the whiteboard input elements.
+            whiteboard_split = $scope.whiteboard.split(',');
+            $scope.filtered_bugs = [];
+            if($scope.whiteboard != "") {
+              for (var whiteboardElement = 0; whiteboardElement < whiteboard_split.length; whiteboardElement++) {
+                if (whiteboard_split[whiteboardElement] == "")
+                  continue;
+                for (var searchIndex = 0; searchIndex < $scope.bugs.length; searchIndex++) {
+                  var returnedVal = $scope.bugs[searchIndex].whiteboard.toLowerCase().search(whiteboard_split[whiteboardElement].toLowerCase().trim());
+                  if(returnedVal != -1) {
+                    $scope.filtered_bugs.push($scope.bugs[searchIndex]);
+                  }
+                };
+              };  
+            }
+            else {
+              $scope.filtered_bugs = $scope.bugs;
+            }
+
+            // Splitting the component input elements.
+            component_split = $scope.component.split(',');
+            filtered_bugs_component = [];
+            flag_component = false;
+            if($scope.component.length != 0) {
+              for (var componentElement = 0; componentElement < component_split.length; componentElement++) {
+                if (component_split[componentElement] == "")
+                  continue;
+                for (var searchIndex = 0; searchIndex < $scope.filtered_bugs.length; searchIndex++) {
+                  for (var componentIndexArr = 0; componentIndexArr < $scope.filtered_bugs[searchIndex].component.length; componentIndexArr++) {
+                    var returnedVal = $scope.filtered_bugs[searchIndex].component[componentIndexArr].toLowerCase().search(component_split[componentElement].toLowerCase().trim());
+                    if(returnedVal != -1) {
+                      flag_component = true;
+                      filtered_bugs_component.push($scope.filtered_bugs[searchIndex]);
+                      break;
+                    }
+                  };
+                };
+              };
+              $scope.filtered_bugs = filtered_bugs_component;
+            }
+
+            // Splitting the assignment input elements.
+            var flag_assigned  = false;
+            assigned_to_split = $scope.assigned_to.split(',');
+            var filtered_bugs_assigned = [];
+            if(!$scope.assigned_to==""){
+              for (var assignedElement = 0; assignedElement < assigned_to_split.length; assignedElement++) {
+                if(assigned_to_split[assignedElement] == "")
+                  continue;
+                for (var assignedIndex = 0; assignedIndex < $scope.filtered_bugs.length; assignedIndex++) {
+                  var assignedVal = $scope.filtered_bugs[assignedIndex].assigned_to.toLowerCase().search(assigned_to_split[assignedElement].toLowerCase().trim());
+                  if(assignedVal != -1) {
+                    flag_assigned = true;
+                    filtered_bugs_assigned.push($scope.filtered_bugs[assignedIndex]);
+                  }
+                };
+              };
+              $scope.filtered_bugs = filtered_bugs_assigned;
+            }
+
+            // Splitting the status input element.
+            var flag_status  = false;
+            status_to_split = $scope.status.split(',');
+            var filtered_bugs_status = [];
+            if(!$scope.status==""){
+              for (var statusElement = 0; statusElement < status_to_split.length; statusElement++) {
+                if(status_to_split[statusElement] == "")
+                  continue;
+                for (var statusIndex = 0; statusIndex < $scope.filtered_bugs.length; statusIndex++) {
+                  var statusVal = $scope.filtered_bugs[statusIndex].status.toLowerCase().search(status_to_split[statusElement].toLowerCase().trim());
+                  if(statusVal != -1) {
+                    flag_status = true;
+                    filtered_bugs_status.push($scope.filtered_bugs[statusIndex]);
+                  }
+                };
+              };
+              $scope.filtered_bugs = filtered_bugs_status;
+            }
+          }
+          $('.selected', '#milestonesOf' + $routeParams.id).removeClass('selected');
+          $('#milestonesOf' + $routeParams.id).show();
 
           // Caching data locally for the milestones
-          data = { meta: $scope.m, bugs: data }
+          data = { meta: $scope.m, bugs: data };
           localStorage.setItem($routeParams.id, JSON.stringify(data));
         });
       };
@@ -276,13 +363,13 @@ angular.module('myApp.controllers', [])
         return bug.id >= 0;
       });
       $scope.m = $scope.cache.meta;
-      $scope.m.title += " " + $routeParams.milestone;
-      $scope.m.whiteboard = $scope.m.whiteboard + " " + $routeParams.milestone;
+      $scope.m.title += ' ' + $routeParams.milestone;
+      $scope.m.whiteboard = $scope.m.whiteboard + ' ' + $routeParams.milestone;
 
-      $("#milestonesOf" + $routeParams.id).show();
-      $(".selected", "#milestonesOf" + $routeParams.id).removeClass("selected");
-      var milestone = $("a[href='/sprint/" + $routeParams.id + "/" + $routeParams.milestone + "']");
-      milestone.addClass("selected");
+      $('#milestonesOf' + $routeParams.id).show();
+      $('.selected', '#milestonesOf' + $routeParams.id).removeClass('selected');
+      var milestone = $('a[href=\'/sprint/' + $routeParams.id + '/' + $routeParams.milestone + '\']');
+      milestone.addClass('selected');
 
       $scope.fields = [
         {
@@ -367,7 +454,7 @@ angular.module('myApp.controllers', [])
     '$scope',
     'sprintService',
     function ($scope, sprintService) {
-      $scope.pageTitle = 'Archieved'
+      $scope.pageTitle = 'Archieved';
       sprintService
         .getArchived()
         .success(function (sprints) {

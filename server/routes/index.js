@@ -39,14 +39,6 @@ module.exports = function(env, app, dbInit, bugzilla, authUri) {
   app.get('/archived', angularRoute);
 
   /*********************************************************
-  * Auth
-  */
-  app.get('/auth', auth.login);
-  app.get('/auth/callback', auth.callback);
-  app.get('/auth/logout', auth.logout);
-  app.get('/user', auth.user);
-
-  /*********************************************************
   * Sprinter db
   */
   app.get('/api/sprints', db.get.all);
