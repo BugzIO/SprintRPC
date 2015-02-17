@@ -13,7 +13,7 @@
         <a ng-if="canEdit(user)" class="btn btn-warning" href="/sprint/{{m.id}}/edit">
           <span class="fa fa-pencil"></span> Edit
         </a>
-        <a ng-if="canEdit(user)" class="btn btn-danger" href="#" ng-click="archive()">
+        <a ng-if="canEdit(use+r)" class="btn btn-danger" href="#" ng-click="archive()">
           <span class="fa fa-times"></span> Archive
         </a>
      </h3>
@@ -38,10 +38,10 @@
   <row>
     <div class="bugz col-lg-10 col-lg-offset-1">
       <form class="form-inline">
-        <input placeholder="Filter whiteboard" class="form-control form-inline" ng-model="bugFilter.whiteboard">
-        <input placeholder="Filter component" class="form-control form-inline" ng-model="bugFilter.component">
-        <input placeholder="Filter assigned" class="form-control form-inline" ng-model="bugFilter.assigned_to">
-        <input placeholder="Filter status" class="form-control form-inline" ng-model="bugFilter.status">
+        <input placeholder="Filter whiteboard" class="form-control form-inline" ng-model="whiteboard" ng-change="filter_bug()">
+        <input placeholder="Filter component" class="form-control form-inline" ng-model="component" ng-change="filter_bug()">
+        <input placeholder="Filter assigned" class="form-control form-inline" ng-model="assigned_to" ng-change="filter_bug()">
+        <input placeholder="Filter status" class="form-control form-inline" ng-model="status" ng-change="filter_bug()">
       </form>
       <div class="bugs-loading" ng-hide="bugs">
         <span class="fa fa-cog fa-spin"></span><span class="sr-only">Loading bugs</span>
@@ -56,7 +56,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="bug in bugs | orderBy: orderByFields | filter:bugFilter"
+          <tr ng-repeat="bug in filtered_bugs | orderBy: orderByFields | filter:bugFilter"
               ng-class="{'bug-resolved': bug.resolution, 'bug-blocked': bug.blocked}"
               ng-hide="bug.status === 'RESOLVED' && hideResolved || bug.resolution === 'DUPLICATE'">
             <td>{{bug.last_change_time | timeago}}</td>
