@@ -13,8 +13,6 @@ module.exports = function(env, app, dbInit, bugzilla, authUri) {
     var config = env.get('ANGULAR');
 
     config.csrf = req.csrfToken();
-    config.ga_id = env.get('GA_ID');
-    config.admins = env.get('WHITELIST');
     config.bzProduct = env.get('BZ_PRODUCT');
     config.dev = env.get('DEV');
 
@@ -37,14 +35,6 @@ module.exports = function(env, app, dbInit, bugzilla, authUri) {
   app.get('/sprint/:id/edit', angularRoute);
   app.get('/sprint/:id/:milestone', angularRoute);
   app.get('/archived', angularRoute);
-
-  /*********************************************************
-  * Auth
-  */
-  app.get('/auth', auth.login);
-  app.get('/auth/callback', auth.callback);
-  app.get('/auth/logout', auth.logout);
-  app.get('/user', auth.user);
 
   /*********************************************************
   * Sprinter db
