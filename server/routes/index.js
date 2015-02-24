@@ -10,11 +10,9 @@ module.exports = function(env, app, dbInit, bugzilla, authUri) {
 
   // Serve up virtual configuration "file"
   app.get('/config.js', function (req, res) {
-    var config = env.get('ANGULAR');
 
+    var config = {};
     config.csrf = req.csrfToken();
-    config.bzProduct = env.get('BZ_PRODUCT');
-    config.dev = env.get('DEV');
 
     res.type('js');
     res.send('window.angularConfig = ' + JSON.stringify(config) + ';');

@@ -29,8 +29,7 @@ angular.module('myApp.services', ['ngResource'])
         });
       };
       service.newBugUrl = function (whiteboard, defaultComponent) {
-        var link = 'https://bugzilla.redhat.com/enter_bug.cgi?product=' + config.bzProduct +
-        '&status_whiteboard=' + encodeURIComponent(whiteboard);
+        var link = 'https://bugzilla.redhat.com/enter_bug.cgi?status_whiteboard=' + encodeURIComponent(whiteboard);
 
         if (defaultComponent) {
           link += ('&component=' + encodeURIComponent(defaultComponent));
