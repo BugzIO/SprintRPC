@@ -81,9 +81,6 @@ angular.module('myApp', [
       });
 
       $rootScope.canEdit = function canEdit(user) {
-        if (config.dev) {
-          return true;
-        }
         if (!user) {
           return false;
         }
