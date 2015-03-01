@@ -1,16 +1,7 @@
-module.exports = function (env) {
+module.exports = function () {
   var express = require('express');
   var app = express();
-  var db = require('./db')(env.get('db'));
-
-  // Whitelist
-  if (env.get('ADMINS')) {
-    env.set('WHITELIST', env.get('ADMINS').split(/\s*,\s*/).map(function (username) {
-      return username.toLowerCase();
-    }));
-  } else {
-    env.set('WHITELIST', []);
-  }
+  var db = require('./db')('sprinter.sqlite');
 
   // bz
   // var bugzilla = env.get('OFFLINE') ? require('../offline/bz.js') : bz.createClient();
@@ -30,7 +21,7 @@ module.exports = function (env) {
   app.use(express.csrf());
 
   app.use(express.static('./app'));
-  require('./routes')(env, app, db, bugzilla);
+  require('./routes')(null, app, db, bugzilla);
 
   //Errors
   app.use(function errorHandler (err, req, res, next) {

@@ -8,11 +8,7 @@ module.exports = function(options) {
   });
 
   // Import models
-  var Team = sequelize.import(__dirname + '/team.js');
   var Sprint = sequelize.import(__dirname + '/sprint.js');
-
-  // Associations
-  Team.hasMany(Sprint);
 
   // Sync
   sequelize.sync().complete(function (err) {
@@ -25,8 +21,7 @@ module.exports = function(options) {
 
   // Export models
   return {
-    sprint: Sprint,
-    team: Team
+    sprint: Sprint
   };
 
 };
