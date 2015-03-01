@@ -7,15 +7,6 @@
           <span class="fa fa-refresh"></span><span class="sr-only">Refresh bugs</span>
         </button>
         Due {{m.dueDate | timeago}}
-        <a ng-if="newBugUrl" href="{{newBugUrl}}" class="btn btn-primary btn-add-bug" target="_blank">
-          <span class="fa fa-plus"></span> Add bug
-        </a>
-        <a ng-if="canEdit(user)" class="btn btn-warning" href="/sprint/{{m.id}}/edit">
-          <span class="fa fa-pencil"></span> Edit
-        </a>
-        <a ng-if="canEdit(user)" class="btn btn-danger" href="#" ng-click="archive()">
-          <span class="fa fa-times"></span> Archive
-        </a>
      </h3>
     </hgroup>
 
@@ -24,6 +15,12 @@
         <span>{{complete.resolved}}/{{complete.total}} ({{complete.percentage}}%)</span>
       </div>
     </div>
+    <a href="{{newBugUrl}}" class="btn btn-primary btn-add-bug" target="_blank">
+      <span class="fa fa-plus"></span> Add Sprint related bug
+    </a>
+    <a ng-if="!m.archived" class="btn btn-danger" href="#" ng-click="archive()">
+      <span class="fa fa-check"></span> Archive this Sprint
+    </a>
 
     <form class="form-inline">
       <div class="checkbox">
