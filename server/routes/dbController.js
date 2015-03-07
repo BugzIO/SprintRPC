@@ -4,28 +4,41 @@ module.exports = function(db) {
 
     get: {
       all: function(req, res, next) {
+        var archivedStatus = req.query.archived || null;
         var limit = req.query.limit || 30;
         var order = req.query.order || 'dueDate';
 
-        db.sprint
-          .findAll({
-            limit: limit,
-            order: order
-          })
-          .success(function(data) {
-            res.json(data);
-          })
-          .error(next);
+        if(archivedStatus !== null) {
+          db.sprint
+            .findAll({
+              limit: limit,
+              where: {archived: true},
+              order: order
+            })
+            .success(function(data) {
+              res.json(data);
+            })
+            .error(next);
+        }
+        else {
+          db.sprint
+            .findAll({
+              limit: limit,
+              order: order
+            })
+            .success(function(data) {
+              res.json(data);
+            })
+            .error(next)
+        }
       },
       id: function(req, res, next) {
-
         db.sprint
           .find(req.params.id)
           .success(function(data) {
             res.json(data);
           })
           .error(next);
-
       }
     },
 
