@@ -6,7 +6,7 @@ Habitat.load();
 var env = new Habitat();
 
 // App
-var app = require('./server')(env);
+var app = require('./server')();
 
 // Run server
 app.listen(1337, function () {
