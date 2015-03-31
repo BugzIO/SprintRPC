@@ -7,6 +7,7 @@ module.exports = function(db) {
         var archivedStatus = req.query.archived || null;
         var limit = req.query.limit || 30;
         var order = req.query.order || 'dueDate';
+        var deleted = null ;
 
         if(archivedStatus !== null) {
           db.sprint
@@ -24,6 +25,7 @@ module.exports = function(db) {
           db.sprint
             .findAll({
               limit: limit,
+              where: {deletion: deleted},
               order: order
             })
             .success(function(data) {

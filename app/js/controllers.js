@@ -161,6 +161,10 @@ angular.module('myApp.controllers', [])
         $scope.m = data
       });
 
+      $scope.delete = sprintService.delete($routeParams.id, function (data) {
+        $scope.m = data
+      });
+
       $scope.getBugs = function() {
         $scope.bugs = [];
         bzService.getBugs($scope.m.whiteboard, function (data) {
