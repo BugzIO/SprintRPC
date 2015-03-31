@@ -27,36 +27,34 @@ angular.module('myApp', [
       $routeProvider.when('/', {
         templateUrl: '/views/home.html',
         controller: 'HomeCtrl'
-      });
-
-      $routeProvider.when('/add', {
+      })
+      .when('/add', {
         templateUrl: '/views/add-update.html',
         controller: 'AddCtrl'
-      });
-
-      $routeProvider.when('/archived', {
+      })
+      .when('/archived', {
         templateUrl: '/views/archived.html',
         controller: 'ArchivedCtrl'
-      });
-
-      $routeProvider.when('/sprint/:id', {
+      })
+      .when('/sprint/:id', {
         templateUrl: '/views/sprint.html',
         controller: 'SprintCtrl'
-      });
-
-      $routeProvider.when('/sprint/:id/edit', {
+      })
+      .when('/sprint/:id/edit', {
         templateUrl: '/views/add-update.html',
         controller: 'UpdateCtrl'
-      });
-
-      $routeProvider.when('/sprint/:id/:milestone', {
+      })
+      .when('/sprint/:id/:milestone', {
         templateUrl: '/views/sprint.html',
         controller: 'SubSprintCtrl'
+      })
+      .when('/error', {
+        templateUrl: '/views/404.html',
+      })
+      .otherwise({
+        redirectTo : '/error'
       });
-
-      $routeProvider.otherwise({
-        redirectTo: '/'
-      });
+            
     }
   ])
   .run([
