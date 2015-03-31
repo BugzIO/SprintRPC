@@ -37,26 +37,10 @@
         </div>
       </div>
 
-      <div id="bugzilla-well" class="col-xs-12">
-        <div class="well well-bugzilla">
-          <h4 class="header-well">Bugzilla</h4>
-          <div class="row">
-            <div class="col-xs-6">
-              <div class="form-group">
-                <label>Target Release</label>
-                <input ng-model="new.whiteboard" class="form-control">
-                <div class="help-block">eg. 3.3, 3.5, 3.6</div>
-              </div>
-            </div>
-            <div class="col-xs-6">
-              <div class="form-group">
-                <label>Default Component</label>
-                <select ng-model="new.defaultComponent" class="form-control">
-                  <option value="">None</option>
-                </select>
-              </div>
-            </div>
-          </div>
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label>Bugzilla Query URL</label>
+          <input ng-model="new.params" class="form-control">
         </div>
       </div>
 

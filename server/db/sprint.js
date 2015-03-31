@@ -13,7 +13,7 @@ module.exports = function(sequelize, t) {
   // updatedAt
 
   return sequelize.define('Sprint', {
-    whiteboard: t.STRING,
+    params: t.STRING,
     title: {
       type: t.STRING,
       allowNull: false,

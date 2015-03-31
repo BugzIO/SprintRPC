@@ -91,6 +91,21 @@ angular.module('myApp.controllers', [])
         // Set the time of the due date to 4:00PM Eastern, which is when our demos are
         $scope.new.dueDate = moment($scope.new.dueDate).hour(16).startOf('hour').toDate();
 
+        // Extracting query parameters from bugzilla URL
+        $scope.new.params = $scope.new.params.split("?")[1];
+        var query = $scope.new.params.split("%20").join(" ").split("&")
+          , params = { limit: 100 };
+
+        for (var i in query) {
+          var param = query[i].split("=");
+          if (!params[param[0]]) {
+            params[param[0]] = []
+          }
+          params[param[0]].push(param[1]);
+        };
+        delete params.query_format;
+        $scope.new.params = JSON.stringify(params);
+
         $http
           .post('/api/sprint', $scope.new)
           .success(function(data) {
@@ -163,7 +178,7 @@ angular.module('myApp.controllers', [])
 
       $scope.getBugs = function() {
         $scope.bugs = [];
-        bzService.getBugs($scope.m.whiteboard, function (data) {
+        bzService.getBugs($scope.m.params, function (data) {
           $scope.bugs = data;
           $scope.filtered_bugs = data;
           console.log(data);
