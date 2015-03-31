@@ -21,6 +21,9 @@
     <a ng-if="!m.archived" class="btn btn-danger" href="#" ng-click="archive()">
       <span class="fa fa-check"></span> Archive this Sprint
     </a>
+    <a ng-if="m.archived" class="btn btn-danger" href="#" ng-click="unarchive()">
+      <span class="fa fa-archive"></span> Un Archive Sprint
+    </a>
 
     <form class="form-inline">
       <div class="checkbox">

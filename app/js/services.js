@@ -45,6 +45,15 @@ angular.module('myApp.services', ['ngResource'])
           .success(cb);
         };
       };
+      service.unarchive = function(id, cb) {
+        return function() {
+          $http
+          .put('/api/sprint/' + id, {
+            archived: false
+          })
+          .success(cb);
+        };
+      };
       return service;
     }
   ])
