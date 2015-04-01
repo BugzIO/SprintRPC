@@ -45,6 +45,15 @@ angular.module('myApp.services', ['ngResource'])
           .success(cb);
         };
       };
+      service.delete = function(id, cb) {
+        return function() {
+          $http
+          .put('/api/sprint/' +id, {
+            deletion: true
+          })
+          .success(cb);
+        };
+      };
       return service;
     }
   ])

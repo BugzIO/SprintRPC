@@ -28,6 +28,10 @@ module.exports = function(sequelize, t) {
     archived: {
       type: t.BOOLEAN,
       default: 0
+    },
+    deletion: {
+      type: t.BOOLEAN,
+      default: 0
     }
   });
 };
