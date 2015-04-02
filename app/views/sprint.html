@@ -33,13 +33,19 @@
   </header>
 
   <row>
-    <div class="bugz col-lg-10 col-lg-offset-1">
-      <form class="form-inline">
+    <div class="bugz col-lg-10 col-lg-offset-1" style="text-align: center;" ng-show="error">
+      <b>{{ "Error " + error.code + ": " + error.message }}</b>
+      <br />
+      May be it's an internal field, only accessible with rhbz login.
+    </div>
+    <div class="bugz col-lg-10 col-lg-offset-1" ng-hide="error">
+      <form class="form-inline" ng-show="bugs">
         <input placeholder="Filter whiteboard" class="form-control form-inline" ng-model="whiteboard" ng-change="filter_bug()">
         <input placeholder="Filter component" class="form-control form-inline" ng-model="component" ng-change="filter_bug()">
         <input placeholder="Filter assigned" class="form-control form-inline" ng-model="assigned_to" ng-change="filter_bug()">
         <input placeholder="Filter status" class="form-control form-inline" ng-model="status" ng-change="filter_bug()">
       </form>
+
       <div class="bugs-loading" ng-hide="bugs">
         <span class="fa fa-cog fa-spin"></span><span class="sr-only">Loading bugs</span>
       </div>

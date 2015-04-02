@@ -94,7 +94,7 @@ angular.module('myApp.controllers', [])
         // Extracting query parameters from bugzilla URL
         $scope.new.params = $scope.new.params.split("?")[1];
         var query = $scope.new.params.split("%20").join(" ").split("&")
-          , params = { limit: 100 };
+          , params = {};
 
         for (var i in query) {
           var param = query[i].split("=");
@@ -104,6 +104,7 @@ angular.module('myApp.controllers', [])
           params[param[0]].push(param[1]);
         };
         delete params.query_format;
+        params.limit = 100;
         $scope.new.params = JSON.stringify(params);
 
         $http
@@ -181,7 +182,6 @@ angular.module('myApp.controllers', [])
         bzService.getBugs($scope.m.params, function (data) {
           $scope.bugs = data;
           $scope.filtered_bugs = data;
-          console.log(data);
           $scope.whiteboard = "";
           $scope.component = "";
           $scope.assigned_to = "";
@@ -273,6 +273,9 @@ angular.module('myApp.controllers', [])
           // Caching data locally for the milestones
           data = { meta: $scope.m, bugs: data }
           localStorage.setItem($routeParams.id, JSON.stringify(data));
+        }, function (error) {
+          // If there's an error result that was returned
+          $scope.error = error.error;
         });
       };
 

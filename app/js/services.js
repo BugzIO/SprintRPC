@@ -53,13 +53,14 @@ angular.module('myApp.services', ['ngResource'])
     'config',
     function ($http, config) {
       var service = {};
-      service.getBugs = function(params, cb) {
+      service.getBugs = function(params, success, error) {
         $http({
             method: 'GET',
             url: '/bugs',
             params: JSON.parse(params)
           })
-          .success(cb);
+          .success(success)
+          .error(error);
       };
       return service;
     }

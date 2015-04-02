@@ -16,6 +16,10 @@ module.exports = function (bugzilla) {
           if (error) return next(error);
           body = JSON.parse(body);
 
+          // If due to wrong params the result is null &
+          // The error will be !null & error.message explains
+          if (body.error) return res.status(404).send(body);
+
           var bugs = body.result.bugs
             , output = bugs.map(function(bug) {
 
