@@ -10,7 +10,7 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label>Title</label>
-          <input ng-model="new.title" class="form-control">
+          <input id="title" ng-model="new.title" class="form-control">
         </div>
       </div>
 
@@ -20,6 +20,7 @@
 
           <div class="input-group">
              <input
+              id="date"
               type="text"
               class="form-control"
               datepicker-popup="longDate"
@@ -40,14 +41,14 @@
       <div class="col-sm-12">
         <div class="form-group">
           <label>Bugzilla Query URL</label>
-          <input ng-model="new.params" class="form-control">
+          <input id="bz-query" ng-model="new.params" class="form-control">
         </div>
       </div>
 
     </div>
 
     <div class="form-group">
-      <button class="btn btn-warning" ng-click="submit()">{{submitLabel}}</button>
+      <button id="submit" class="btn btn-warning" ng-click="submit()">{{submitLabel}}</button>
       <button ng-if="pageTitle === 'Edit Sprint'" class="btn btn-default" ng-click="cancel()">Cancel</button>
     </div>
   </form>

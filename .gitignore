@@ -9,3 +9,4 @@ tmp
 app/compiled/
 TODO.txt
 *.sqlite
+reports/*
