@@ -17,7 +17,6 @@ module.exports = function(env, app, dbInit, bugzilla, authUri) {
     res.type('js');
     res.send('window.angularConfig = ' + JSON.stringify(config) + ';');
   });
-
   /*********************************************************
   * Angular
   */
@@ -33,6 +32,7 @@ module.exports = function(env, app, dbInit, bugzilla, authUri) {
   app.get('/sprint/:id/edit', angularRoute);
   app.get('/sprint/:id/:milestone', angularRoute);
   app.get('/archived', angularRoute);
+
 
   /*********************************************************
   * Sprinter db
@@ -51,4 +51,10 @@ module.exports = function(env, app, dbInit, bugzilla, authUri) {
   app.get('/bugs', bz.bugs);
   app.get('/flags', bz.flags);
 
+  /*********************************************************
+  * 404 page
+  */
+  
+  app.get('/error',angularRoute);
+  app.get('*',angularRoute);
 };
