@@ -177,6 +177,10 @@ angular.module('myApp.controllers', [])
         $scope.m = data
       });
 
+      $scope.unarchive = sprintService.unarchive($routeParams.id, function (data) {
+        $scope.m = data
+      });
+
       $scope.getBugs = function() {
         $scope.bugs = [];
         bzService.getBugs($scope.m.params, function (data) {
