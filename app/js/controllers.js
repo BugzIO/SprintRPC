@@ -205,7 +205,7 @@ angular.module('myApp.controllers', [])
                     $scope.filtered_bugs.push($scope.bugs[searchIndex]);
                   }
                 };
-              };  
+              };
             }
             else {
               $scope.filtered_bugs = $scope.bugs;
@@ -361,9 +361,9 @@ angular.module('myApp.controllers', [])
         return bug.status === 'CLOSED';
       }
 
-      $scope.$watch('bugs', function() {
-        var bugsResolved = Math.floor($scope.bugs.filter(isResolved).length);
-        var totalBugs =  $scope.bugs.length;
+      $scope.$watch('filtered_bugs', function() {
+        var bugsResolved = Math.floor($scope.filtered_bugs.filter(isResolved).length);
+        var totalBugs =  $scope.filtered_bugs.length;
         $scope.complete = {
           percentage:  Math.round(bugsResolved / totalBugs * 100),
           resolved: bugsResolved,
