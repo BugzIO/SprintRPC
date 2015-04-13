@@ -48,6 +48,10 @@ angular.module('myApp', [
         templateUrl: '/views/sprint.html',
         controller: 'SubSprintCtrl'
       })
+      .when('/delete', {
+        templateUrl: '/views/delete.html',
+        controller: 'DeleteCtrl'
+      })
       .when('/error', {
         templateUrl: '/views/404.html',
       })
