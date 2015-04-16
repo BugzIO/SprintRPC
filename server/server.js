@@ -3,6 +3,8 @@ module.exports = function () {
   var app = express();
   var db = require('./db')('sprinter.sqlite');
 
+  global.config = require("../config");
+
   // bz
   // var bugzilla = env.get('OFFLINE') ? require('../offline/bz.js') : bz.createClient();
   var bugzilla = require('../offline/bz.js');

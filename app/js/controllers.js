@@ -104,7 +104,7 @@ angular.module('myApp.controllers', [])
           params[param[0]].push(param[1]);
         };
         delete params.query_format;
-        params.limit = 100;
+        params.limit = 1000;
         $scope.new.params = JSON.stringify(params);
 
         $http

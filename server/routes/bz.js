@@ -2,6 +2,7 @@ module.exports = function (bugzilla) {
   return {
     bugs: function (req, res, next) {
       var url = 'https://bugzilla.redhat.com/jsonrpc.cgi?method=Bug.search';
+      url += "&Bugzilla_login=" + config.BUGZILLA_USER + "&Bugzilla_password=" + config.BUGZILLA_PASS;
       url += "&params=" + encodeURIComponent(JSON.stringify([req.query]));
 
       console.log(url);
