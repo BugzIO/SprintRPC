@@ -174,6 +174,10 @@ angular.module('myApp.controllers', [])
       $scope.complete = {};
 
       $scope.archive = sprintService.archive($routeParams.id, function (data) {
+        $scope.m = data;
+      });
+
+      $scope.delete = sprintService.delete($routeParams.id, function (data) {
         $scope.m = data
       });
 
@@ -470,6 +474,31 @@ angular.module('myApp.controllers', [])
           $scope.hideResolved = false;
         }
       });
+    }
+  ])
+  .controller('DeleteCtrl', [
+    '$scope',
+    'sprintService',
+
+
+    function ($scope, sprintService) {
+      $scope.m = {};
+      $scope.$on('sprintRefresh', function (event, sprints) {
+        $scope.sprints = sprints;
+      });
+      $scope.pageTitle = 'Delete Sprints'
+      sprintService
+        .getAll()
+        .success(function (sprints) {
+          $scope.sprints = sprints;
+        });
+      $scope.delete=function(sprintid) {
+        sprintService
+        .deleteSprint(sprintid,function (data) {
+          
+        });
+
+      }
     }
   ])
   .controller('ArchivedCtrl', [

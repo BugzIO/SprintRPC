@@ -28,6 +28,13 @@ angular.module('myApp.services', ['ngResource'])
           }
         });
       };
+      service.getAll = function() {
+        return $http.get('/api/sprints', {
+          params: {
+            limit: 100
+          }
+        })
+      }
       service.newBugUrl = function (whiteboard, defaultComponent) {
         var link = 'https://bugzilla.redhat.com/enter_bug.cgi?status_whiteboard=' + encodeURIComponent(whiteboard);
 
@@ -53,6 +60,20 @@ angular.module('myApp.services', ['ngResource'])
           })
           .success(cb);
         };
+      };
+      service.deleteSprint = function(id,cb) {
+        $http
+          .put('/api/sprint/' + id, {
+            deletion: true
+          })
+          .success(function (data){
+            $http
+            .get('/api/sprints')
+            .success(function(data) {
+              service.sprints = data;
+              $rootScope.$broadcast('sprintRefresh', service.sprints);
+            });
+          });
       };
       return service;
     }
