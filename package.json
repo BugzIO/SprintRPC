@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "postinstall": "./node_modules/.bin/bower install && ./node_modules/.bin/grunt build",
-    "start": "node server/app.js"
+    "start": "node server/app.js",
+    "test" : "mocha tests/*"
   },
   "keywords": [],
   "author": "author",
@@ -29,7 +30,9 @@
     "webmaker-auth": "0.0.8",
     "sequelize": "1.7.10",
     "simple-oauth2": "0.1.9",
-    "sqlite3": "2.2.7"
+    "sqlite3": "2.2.7",
+    "chai": "^2.2.0",
+    "mocha": "^2.2.4"
   },
   "engines": {
     "node": ">=0.10"

@@ -8,4 +8,4 @@ install:
   - npm install
   - bower install
 script:
-  - grunt
+  - npm test
